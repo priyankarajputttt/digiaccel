@@ -1,5 +1,7 @@
 # Quiz-App
 
+# github link   :   https://github.com/pathakradhika02/Quiz-App.git
+
 # API DETAILS 
 
 1.  localhost:5000/register   
