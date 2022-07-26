@@ -1,9 +1,9 @@
-# Quiz-App
+# Quiz-App-system
 
 
 # API DETAILS 
 
-1.  localhost:3000/register   
+1.  localhost:3000/createuser
     => API to register user and admin
     => Input format in postman   :    {
                                       "name": "priyanka",
