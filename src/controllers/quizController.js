@@ -37,7 +37,7 @@ const getQuestion = async (req, res) => {
 }
 
 
-const checkQuestion = async (req, res) => {
+const check = async (req, res) => {
     try {
         const reqBody = req.body;
         if (Object.keys(reqBody).length == 0) return res.status(400).send({ status: "failed", message: "Please enter data" });
@@ -46,7 +46,7 @@ const checkQuestion = async (req, res) => {
         const userId = req.params.userId;
 
         // CHECK: question and selectedOption is provided
-        if (!validator.isEmptyOrMissing(question)) return res.status(400).send({ status: "failed", message: "Please enter question..." });
+        if (!validator.isEmpty(question)) return res.status(400).send({ status: "failed", message: "Please enter question..." });
         if (typeof (selectedOption) !== "object") return res.status(400).send({ status: "failed", message: "Please enter selected option in Array..." });
         else {
             selectedOption = selectedOption.filter(x => x.trim())
@@ -89,4 +89,4 @@ const checkQuestion = async (req, res) => {
 
 
 module.exports.getQuestion = getQuestion
-module.exports.checkQuestion = checkQuestion
+module.exports.check = check

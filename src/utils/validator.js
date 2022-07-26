@@ -1,5 +1,5 @@
 //  Function to check if any data field is missing or empty
-const isEmptyOrMissing = function (value) {
+const isEmpty = function (value) {
     if (typeof (value) === 'undefined' || typeof (value) === 'null') return false
     else if (typeof (value) === 'string' && value.trim().length > 0) return true
     else if (typeof (value) === 'number' ) return true
@@ -7,12 +7,12 @@ const isEmptyOrMissing = function (value) {
 
 
 // function to validate valid indian Number
-const isValidPhone = function (phone) {
+const isValidmobile = function (phone) {
     if (/^\+?([6-9]{1})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{5})$/.test(phone)) return true
 }
 
 // function to validate valid emailId
-const isValidEmail = function (email) {
+const isValidemailId = function (email) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) return true
 }
 
@@ -51,9 +51,9 @@ const checkAnswer = function (selectedOptions , rightOptions) {
 }
 
 
-module.exports.isEmptyOrMissing = isEmptyOrMissing
-module.exports.isValidEmail = isValidEmail
-module.exports.isValidPhone = isValidPhone
+module.exports.isEmpty = isEmpty
+module.exports.isValidemailId= isValidemailId
+module.exports.isValidmobile = isValidmobile
 module.exports.isValidID = isValidID
 module.exports.isRightOptions = isRightOptions
 module.exports.filterDuplcates = filterDuplcates

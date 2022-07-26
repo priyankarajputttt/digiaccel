@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken")
 
 
 //  Register user
-const registerUser = async (req, res) => {
+const createuser = async (req, res) => {
     try{
         const reqBody = req.body;
 
@@ -16,16 +16,16 @@ const registerUser = async (req, res) => {
         const {name, email, phone, password, cpassword, role} = reqBody 
 
         // CHECK : all required data fields are present and not null
-        if(!validator.isEmptyOrMissing(name)) return res.status(400).send({status:"failed", message: "Please enter name..."});
-        if(!validator.isEmptyOrMissing(email)) return res.status(400).send({status:"failed", message: "Please enter emailId..."});
-        if(!validator.isEmptyOrMissing(phone)) return res.status(400).send({status:"failed", message: "Please enter phone number..."});
-        if(!validator.isEmptyOrMissing(role)) return res.status(400).send({status:"failed", message: "Please enter role..."});
-        if(!validator.isEmptyOrMissing(password)) return res.status(400).send({status:"failed", message: "Please enter pasword..."});
-        if(!validator.isEmptyOrMissing(cpassword)) return res.status(400).send({status:"failed", message: "Please enter confirm password..."});
+        if(!validator.isEmpty(name)) return res.status(400).send({status:"failed", message: "Please enter name..."});
+        if(!validator.isEmpty(email)) return res.status(400).send({status:"failed", message: "Please enter emailId..."});
+        if(!validator.isEmpty(phone)) return res.status(400).send({status:"failed", message: "Please enter phone number..."});
+        if(!validator.isEmpty(role)) return res.status(400).send({status:"failed", message: "Please enter role..."});
+        if(!validator.isEmpty(password)) return res.status(400).send({status:"failed", message: "Please enter pasword..."});
+        if(!validator.isEmpty(cpassword)) return res.status(400).send({status:"failed", message: "Please enter confirm password..."});
 
         // CHECK : email , phone , role is valid
-        if(!validator.isValidEmail(email)) return res.status(400).send({status:"failed", message: "Please enter valid emailId..."});
-        if(!validator.isValidPhone(phone)) return res.status(400).send({status:"failed", message: "Please enter valid phone number..."});
+        if(!validator.isValidemailId(email)) return res.status(400).send({status:"failed", message: "Please enter valid emailId..."});
+        if(!validator.isValidmobile(phone)) return res.status(400).send({status:"failed", message: "Please enter valid phone number..."});
         if(!(role=="Admin" || role=="User")) return res.status(400).send({status:"failed", message: "Please enter valid role (user or admin)..."});
 
         // CHECK : password and confirm password is same
@@ -58,7 +58,7 @@ const registerUser = async (req, res) => {
 }
 
 // Log-In User
-const loginUser = async (req, res) => {
+const login = async (req, res) => {
     try{
         const reqBody = req.body;
 
@@ -68,11 +68,11 @@ const loginUser = async (req, res) => {
         const {email, password} = reqBody 
 
         // CHECK : all required data fields are present and not null
-        if(!validator.isEmptyOrMissing(email)) return res.status(400).send({status:"failed", message: "Please enter emailId..."});
-        if(!validator.isEmptyOrMissing(password)) return res.status(400).send({status:"failed", message: "Please enter pasword..."});
+        if(!validator.isEmpty(email)) return res.status(400).send({status:"failed", message: "Please enter emailId..."});
+        if(!validator.isEmpty(password)) return res.status(400).send({status:"failed", message: "Please enter pasword..."});
 
         // CHECK : email is valid
-        if(!validator.isValidEmail(email)) return res.status(400).send({status:"failed", message: "Please enter valid emailId..."});
+        if(!validator.isValidemailId(email)) return res.status(400).send({status:"failed", message: "Please enter valid emailId..."});
 
         // CHECK : User Exist
         const user = await userModel.findOne({email: email})
@@ -88,7 +88,7 @@ const loginUser = async (req, res) => {
             role: user.role,
             iat: Math.floor(Date.now() / 1000),
             exp: Math.floor(Date.now() / 1000) + 120 * 60
-        }, process.env.SECURITY_KEY);
+        }, "cnmdkefbfirmeoldmdknvfvmf4545nskmxcndkmdld45c31cdcdn");
         
         res.setHeader("Authorization", token);
 
@@ -101,5 +101,5 @@ const loginUser = async (req, res) => {
 }
 
 
-module.exports.loginUser = loginUser
-module.exports.registerUser = registerUser
+module.exports.login = login
+module.exports.createuser = createuser

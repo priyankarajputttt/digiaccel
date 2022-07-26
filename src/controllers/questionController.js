@@ -3,7 +3,7 @@ const userModel = require("../models/userModel");
 const validator = require("../utils/validator");
 
 // Add new Question in DB 
-const addQuestion = async (req, res) => {
+const addnewques = async (req, res) => {
     try{
         reqBody = req.body 
         if(Object.keys(reqBody).length==0) return res.status(400).send({status:"failed",message: "Please enter data..."});
@@ -18,16 +18,16 @@ const addQuestion = async (req, res) => {
         if(user.role != "Admin")  return res.status(403).send({ status: false, message: "You haven't right to perform this task" })
 
         //  CHECK : all data field is present 
-        if(!validator.isEmptyOrMissing(question)) return res.status(400).send({status:"failed",message: "Please enter question..."});
-        if(!validator.isEmptyOrMissing(option1)) return res.status(400).send({status:"failed",message: "Please enter option1..."});
-        if(!validator.isEmptyOrMissing(option2)) return res.status(400).send({status:"failed",message: "Please enter option2..."});
-        if(!validator.isEmptyOrMissing(option3)) return res.status(400).send({status:"failed",message: "Please enter option3..."});
-        if(!validator.isEmptyOrMissing(option4)) return res.status(400).send({status:"failed",message: "Please enter option4..."});
+        if(!validator.isEmpty(question)) return res.status(400).send({status:"failed",message: "Please enter question..."});
+        if(!validator.isEmpty(option1)) return res.status(400).send({status:"failed",message: "Please enter option1..."});
+        if(!validator.isEmpty(option2)) return res.status(400).send({status:"failed",message: "Please enter option2..."});
+        if(!validator.isEmpty(option3)) return res.status(400).send({status:"failed",message: "Please enter option3..."});
+        if(!validator.isEmpty(option4)) return res.status(400).send({status:"failed",message: "Please enter option4..."});
         if (typeof (rightOption) === "object") {
             rightOption = rightOption.filter(x => x.trim())
             if (rightOption.length == 0) return res.status(400).send({status:"failed",message: "Please enter right option..."});
         }
-        if(!validator.isEmptyOrMissing(difficulty)) return res.status(400).send({status:"failed",message: "Please enter difficulty level"});
+        if(!validator.isEmpty(difficulty)) return res.status(400).send({status:"failed",message: "Please enter difficulty level"});
         if(difficulty>10 || difficulty<1) return res.status(400).send({status:"failed",message: "Please enter difficulty level among 1-10"});
 
         // Check : length of Options 
@@ -59,4 +59,4 @@ const addQuestion = async (req, res) => {
 
 
 
-module.exports.addQuestion = addQuestion
+module.exports.addnewques = addnewques
